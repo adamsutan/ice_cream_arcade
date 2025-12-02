@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx4d8rdjhdxc0"]
+
+[ext_resource type="Texture2D" uid="uid://citjw5qgp42g1" path="res://cone.png" id="1_u0elp"]
+
+[node name="cone" type="Sprite2D"]
+position = Vector2(1089.0001, 586)
+scale = Vector2(1.46875, 1.6484375)
+texture = ExtResource("1_u0elp")

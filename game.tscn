@@ -12,6 +12,7 @@ position = Vector2(0, -1)
 script = ExtResource("1_ryrav")
 
 [node name="background" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(579.00006, 325.00003)
 scale = Vector2(1.123291, 0.4235026)
 texture = ExtResource("1_80nbo")

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ddk8ds4gay1gw" path="res://customer f.png" id="1_ou7ww"]
 
-[node name="customer f" type="Node2D"]
+[node name="customer_f" type="Node2D"]
 
 [node name="Body" type="Sprite2D" parent="."]
 position = Vector2(3, -2)

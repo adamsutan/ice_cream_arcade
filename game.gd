@@ -1,4 +1,8 @@
 extends Node2D
+@onready var male_customer_scene = preload("res://customer_m.tscn")
+@onready var female_customer_scene = preload("res://customer_f.tscn")
+
+var current_customer = null
 
 @onready var vanilla_scene = preload("res://vanilla_scoop.tscn")
 @onready var strawberry_scene = preload("res://strawberry_scoop.tscn")
@@ -8,15 +12,24 @@ extends Node2D
 var scoop_count = 0
 var scoop_spacing = -30
 
+var order: Array = []
+
+func spawn_customer():
+	var choice = randi() % 2
+	if choice == 0:
+		current_customer = male_customer_scene.instantiate()
+	else:
+		current_customer = female_customer_scene.instantiate()
+	current_customer.position = Vector2(300, 200)  # Adjust to shop layout
+	add_child(current_customer)
+	current_customer.start_order()
 
 func _on_vanilla_pressed() -> void:
 	add_scoop(vanilla_scene)
 
 
-
 func _on_strawberry_pressed() -> void:
 	add_scoop(strawberry_scene)
-
 
 
 func _on_chocolate_pressed() -> void:
