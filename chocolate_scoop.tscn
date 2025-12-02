@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c7p6a3kc4fcfi"]
 
-[ext_resource type="Texture2D" uid="uid://cvgmpl3h6qw2o" path="res://scoop choco.png" id="1_2viet"]
+[ext_resource type="Texture2D" uid="uid://cvgmpl3h6qw2o" path="res://assets/graphics/ice_creams/scoop choco.png" id="1_2viet"]
 
 [node name="chocolate scoop" type="Sprite2D"]
 position = Vector2(1061.9999, 494)

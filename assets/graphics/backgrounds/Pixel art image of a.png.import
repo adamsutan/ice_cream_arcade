@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvgmpl3h6qw2o"
-path="res://.godot/imported/scoop choco.png-4b8d94a6ef5e9ad1f01aaaeab926a21a.ctex"
+uid="uid://bfa6swpbiple3"
+path="res://.godot/imported/Pixel art image of a.png-1c921a796e1ff083b9097f5a7bd5b3ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scoop choco.png"
-dest_files=["res://.godot/imported/scoop choco.png-4b8d94a6ef5e9ad1f01aaaeab926a21a.ctex"]
+source_file="res://assets/graphics/backgrounds/Pixel art image of a.png"
+dest_files=["res://.godot/imported/Pixel art image of a.png-1c921a796e1ff083b9097f5a7bd5b3ef.ctex"]
 
 [params]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cm1ghmt0xh5u0"]
 
-[ext_resource type="Texture2D" uid="uid://pr1gq5yjusn8" path="res://scoop strawberry.png" id="1_uat75"]
+[ext_resource type="Texture2D" uid="uid://pr1gq5yjusn8" path="res://assets/graphics/ice_creams/scoop strawberry.png" id="1_uat75"]
 
 [node name="strawberry scoop" type="Sprite2D"]
 position = Vector2(1036, 457)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dq1v51a3koqsh"]
 
-[ext_resource type="Texture2D" uid="uid://ddk8ds4gay1gw" path="res://customer f.png" id="1_ou7ww"]
+[ext_resource type="Texture2D" uid="uid://ddk8ds4gay1gw" path="res://assets/graphics/customers/customer f.png" id="1_ou7ww"]
 
 [node name="customer_f" type="Node2D"]
 

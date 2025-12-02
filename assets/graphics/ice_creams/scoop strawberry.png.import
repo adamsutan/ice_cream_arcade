@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://citjw5qgp42g1"
-path="res://.godot/imported/cone.png-4de8d8b12f0405e1d07acb9e266186be.ctex"
+uid="uid://pr1gq5yjusn8"
+path="res://.godot/imported/scoop strawberry.png-b20d4ea250153ae57444ce614b256f15.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://cone.png"
-dest_files=["res://.godot/imported/cone.png-4de8d8b12f0405e1d07acb9e266186be.ctex"]
+source_file="res://assets/graphics/ice_creams/scoop strawberry.png"
+dest_files=["res://.godot/imported/scoop strawberry.png-b20d4ea250153ae57444ce614b256f15.ctex"]
 
 [params]
 
