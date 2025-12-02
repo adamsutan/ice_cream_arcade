@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqy1mxddrdv4b"]
+
+[ext_resource type="Texture2D" uid="uid://xl1m1dbxynkd" path="res://vanilla scoop.png" id="1_lhwff"]
+
+[node name="vanilla scoop" type="Sprite2D"]
+position = Vector2(1059, 508)
+scale = Vector2(0.23095703, 0.2207438)
+texture = ExtResource("1_lhwff")

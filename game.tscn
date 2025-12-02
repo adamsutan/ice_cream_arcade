@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://dc5ka3tmdkpv8"]
+
+[ext_resource type="Texture2D" uid="uid://dj13e2ptitolf" path="res://store.png" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://b3uftux6yopk0" path="res://game.gd" id="1_ryrav"]
+[ext_resource type="Texture2D" uid="uid://dmtc5os38ebok" path="res://vanilla.png" id="2_fc0e3"]
+[ext_resource type="Texture2D" uid="uid://6xe1036gk6h2" path="res://strawberry.png" id="3_7jktm"]
+[ext_resource type="Texture2D" uid="uid://c67y7y6fpdthk" path="res://chocolate.png" id="4_ryrav"]
+[ext_resource type="Texture2D" uid="uid://citjw5qgp42g1" path="res://cone.png" id="6_eow3j"]
+
+[node name="game" type="Node2D"]
+position = Vector2(0, -1)
+script = ExtResource("1_ryrav")
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(579.00006, 325.00003)
+scale = Vector2(1.123291, 0.4235026)
+texture = ExtResource("1_80nbo")
+
+[node name="Vanilla" type="TextureButton" parent="."]
+offset_left = 475.0
+offset_top = 231.0
+offset_right = 655.0
+offset_bottom = 369.0
+texture_normal = ExtResource("2_fc0e3")
+stretch_mode = 0
+
+[node name="Strawberry" type="TextureButton" parent="."]
+offset_left = 772.0
+offset_top = 231.0
+offset_right = 957.0
+offset_bottom = 367.0
+texture_normal = ExtResource("3_7jktm")
+stretch_mode = 0
+
+[node name="Chocolate" type="TextureButton" parent="."]
+offset_left = 180.0
+offset_top = 228.0
+offset_right = 363.0
+offset_bottom = 377.0
+texture_normal = ExtResource("4_ryrav")
+stretch_mode = 0
+
+[node name="ice cream display" type="Node2D" parent="."]
+position = Vector2(1098, 550)
+
+[node name="cone" type="TextureButton" parent="ice cream display"]
+offset_left = -68.00005
+offset_top = -26.000023
+offset_right = -0.6815109
+offset_bottom = 42.57142
+scale = Vector2(2.109375, 1.75)
+texture_normal = ExtResource("6_eow3j")
+
+[node name="scoop currently" type="Node2D" parent="ice cream display"]
+position = Vector2(0, 2)
+
+[connection signal="pressed" from="Vanilla" to="." method="_on_vanilla_pressed"]
+[connection signal="pressed" from="Strawberry" to="." method="_on_strawberry_pressed"]
+[connection signal="pressed" from="Chocolate" to="." method="_on_chocolate_pressed"]
+[connection signal="pressed" from="ice cream display/cone" to="." method="_on_cone_pressed"]
