@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdfi2s7ljahlx"]
+
+[ext_resource type="Texture2D" uid="uid://cu4htvm4h7y8t" path="res://assets/graphics/ice_creams/green tea scoop.png" id="1_vvxfj"]
+
+[node name="green_tea_scoop" type="Sprite2D"]
+position = Vector2(1071, 540.5)
+scale = Vector2(0.17968759, 0.178711)
+texture = ExtResource("1_vvxfj")

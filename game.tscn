@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dc5ka3tmdkpv8"]
+[gd_scene load_steps=10 format=3 uid="uid://dc5ka3tmdkpv8"]
 
 [ext_resource type="Texture2D" uid="uid://dj13e2ptitolf" path="res://assets/graphics/backgrounds/store.png" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://b3uftux6yopk0" path="res://game.gd" id="1_ryrav"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://6xe1036gk6h2" path="res://assets/graphics/ice_creams/strawberry.png" id="3_7jktm"]
 [ext_resource type="Texture2D" uid="uid://c67y7y6fpdthk" path="res://assets/graphics/ice_creams/chocolate.png" id="4_ryrav"]
 [ext_resource type="Texture2D" uid="uid://citjw5qgp42g1" path="res://assets/graphics/ice_creams/cone.png" id="6_eow3j"]
+[ext_resource type="Texture2D" uid="uid://cj48yblwtk5kh" path="res://assets/graphics/ice_creams/banana template.png" id="7_vef74"]
+[ext_resource type="Texture2D" uid="uid://cb8wkxy0o1aex" path="res://assets/graphics/ice_creams/green tea template.png" id="8_hve3p"]
+[ext_resource type="Texture2D" uid="uid://ch73snsrcurpq" path="res://assets/graphics/ice_creams/red velvet.png" id="9_mfdv2"]
 
 [node name="game" type="Node2D"]
 position = Vector2(0, -1)
@@ -77,8 +80,35 @@ position = Vector2(0, 2)
 wait_time = 10.0
 autostart = true
 
+[node name="Banana" type="TextureButton" parent="."]
+offset_left = 201.0
+offset_top = 358.0
+offset_right = 348.0
+offset_bottom = 503.0
+texture_normal = ExtResource("7_vef74")
+stretch_mode = 0
+
+[node name="Green_Tea" type="TextureButton" parent="."]
+offset_left = 492.0
+offset_top = 362.0
+offset_right = 642.0
+offset_bottom = 492.0
+texture_normal = ExtResource("8_hve3p")
+stretch_mode = 0
+
+[node name="Red_Velvet" type="TextureButton" parent="."]
+offset_left = 789.0
+offset_top = 363.0
+offset_right = 940.0
+offset_bottom = 495.0
+texture_normal = ExtResource("9_mfdv2")
+stretch_mode = 0
+
 [connection signal="pressed" from="Vanilla" to="." method="_on_vanilla_pressed"]
 [connection signal="pressed" from="Strawberry" to="." method="_on_strawberry_pressed"]
 [connection signal="pressed" from="Chocolate" to="." method="_on_chocolate_pressed"]
 [connection signal="pressed" from="ice cream display/cone" to="." method="_on_cone_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Banana" to="." method="_on_banana_pressed"]
+[connection signal="pressed" from="Green_Tea" to="." method="_on_green_tea_pressed"]
+[connection signal="pressed" from="Red_Velvet" to="." method="_on_red_velvet_pressed"]

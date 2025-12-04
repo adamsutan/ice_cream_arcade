@@ -1,9 +1,5 @@
 extends Control
 
-
-func _on_try_again_pressed() -> void:
-	pass # Replace with function body.
-
-
-func _on_quit_pressed() -> void:
-	pass # Replace with function body.
+func _ready():
+	await get_tree().create_timer(5.0).timeout
+	get_tree().change_scene_to_file("res://main_menu.tscn")

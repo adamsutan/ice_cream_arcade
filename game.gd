@@ -4,6 +4,9 @@ extends Node2D
 @onready var vanilla_scene = preload("res://vanilla_scoop.tscn")
 @onready var strawberry_scene = preload("res://strawberry_scoop.tscn")
 @onready var chocolate_scene = preload("res://chocolate_scoop.tscn")
+@onready var Banana_scene = preload("res://banana_scoop.tscn")
+@onready var green_tea_scene = preload("res://green_tea_scoop.tscn")
+@onready var red_velvet_scene = preload("res://red_velvet_scoop.tscn")
 @onready var timer = $Timer
 @onready var time_label: RichTextLabel = $TimerDisplay
 @onready var order_debug: RichTextLabel = $Order
@@ -13,14 +16,14 @@ var current_customer = null
 var scoop_count = 0
 var scoop_spacing = -30
 
-var avail_scoops: Array = [1,2,3]
+var avail_scoops: Array = [1,2,3,4,5,6] #kode buat rasa in case mau tambah rasa
 var order: Array = []
 var serve: Array = []
 
 func _ready() -> void:
 	generate_order()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# Timer
 	if timer.is_stopped():
 		time_label.text = "[0.0 s]"
@@ -53,7 +56,7 @@ func on_serve_match() -> void:
 	#current_customer.start_order()
 
 func generate_order():
-	var max_scoop = avail_scoops.size()
+	var max_scoop = 3
 	var min_scoop = 1
 	var count = randi() % (max_scoop - min_scoop + 1) + min_scoop
 	var shuffled = avail_scoops.duplicate()
@@ -68,15 +71,15 @@ func generate_order():
 
 func _on_vanilla_pressed() -> void:
 	add_scoop(vanilla_scene)
-	serve.append(1)
+	serve.append(2)
 
 func _on_strawberry_pressed() -> void:
 	add_scoop(strawberry_scene)
-	serve.append(2)
+	serve.append(3)
 
 func _on_chocolate_pressed() -> void:
 	add_scoop(chocolate_scene)
-	serve.append(3)
+	serve.append(1)
 
 func add_scoop(scoop_scene: PackedScene) -> void:
 	if scoop_count >= 3 :
@@ -93,8 +96,19 @@ func _on_cone_pressed() -> void:
 	serve = []
 
 func _on_timer_timeout() -> void:
-	get_tree().change_scene_to_file("res://main_menu.tscn")
+	get_tree().change_scene_to_file("res://game_over.tscn")
 	# nanti bikin scene game_over trus panggil disini
 
-	
-	
+func _on_red_velvet_pressed() -> void:
+	add_scoop(red_velvet_scene)
+	serve.append(6)
+
+
+func _on_green_tea_pressed() -> void:
+	add_scoop(green_tea_scene)
+	serve.append(5)
+
+
+func _on_banana_pressed() -> void:
+	add_scoop(Banana_scene)
+	serve.append(4)
