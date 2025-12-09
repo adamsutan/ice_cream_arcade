@@ -4,5 +4,5 @@
 
 [node name="vanilla scoop" type="Sprite2D"]
 position = Vector2(1059, 508)
-scale = Vector2(0.23095703, 0.2207438)
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("1_lhwff")

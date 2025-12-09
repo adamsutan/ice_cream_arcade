@@ -4,5 +4,5 @@
 
 [node name="chocolate scoop" type="Sprite2D"]
 position = Vector2(1061.9999, 494)
-scale = Vector2(0.1545899, 0.1397786)
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("1_2viet")

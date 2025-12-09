@@ -4,5 +4,5 @@
 
 [node name="strawberry scoop" type="Sprite2D"]
 position = Vector2(1036, 457)
-scale = Vector2(0.2, 0.212)
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("1_uat75")

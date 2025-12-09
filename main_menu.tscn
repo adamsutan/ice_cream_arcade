@@ -32,4 +32,27 @@ offset_right = 702.0
 offset_bottom = 522.0
 text = "start"
 
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 378.0
+offset_top = 108.0
+offset_right = 776.0
+offset_bottom = 298.0
+theme_override_font_sizes/normal_font_size = 69
+text = "ARCADE ICE CREAM
+"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 665.99994
+offset_top = 53.0
+offset_right = 895.99994
+offset_bottom = 108.0
+rotation = 0.36593312
+theme_override_colors/default_color = Color(1, 1, 0, 1)
+text = "(ya.. kita butuh 2D artist pls)"
+fit_content = true
+
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]

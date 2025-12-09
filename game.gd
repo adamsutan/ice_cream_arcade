@@ -20,27 +20,24 @@ extends Node2D
 
 # Path (relative to this node) to the node that should contain order scoops.
 # Sesuaikan kalau struktur scene root-mu beda. Default sesuai screenshotmu.
-@export var order_scoops_rel_path: String = "OrderDisplay/border_scoops"
+@export var order_scoops_rel_path: String = "OrderDisplay/order_scoops" 
 
 # Visual tweaks untuk order display (Inspector-friendly)
-@export var order_scoop_scale: Vector2 = Vector2(0.6, 0.6)
-@export var order_scoop_spacing: float = -14.0
+@export var order_scoop_scale: Vector2 = Vector2(0.1, 0.1)
+@export var order_scoop_spacing = -30.0
 
 var current_customer = null
 var scoop_count = 0
-var scoop_spacing = -30
+var scoop_spacing: float = -30.0
 
-# Mapping kode rasa -> PackedScene (dibangun di _ready dari exported vars)
 var scoop_map: Dictionary = {}
 
-# available scoop codes (dipakai untuk generate order)
 var avail_scoops: Array = []
 
 var order: Array = []
 var serve: Array = []
 
 func _ready() -> void:
-    # bangun mapping kode -> scene (kamu bisa ubah kode sesuai kebutuhan)
     scoop_map = {
         1: chocolate_scene,
         2: vanilla_scene,
@@ -49,26 +46,21 @@ func _ready() -> void:
         5: green_tea_scene,
         6: red_velvet_scene
     }
-    # avail_scoops adalah daftar key dari scoop_map, dipakai untuk generate_order
     avail_scoops = scoop_map.keys()
     randomize()
 
     generate_order()
     spawn_customer()
-    # tampilkan order di bubble awal
     display_order_in_bubble(order)
 
 func _process(_delta: float) -> void:
-    # Timer display
     if timer.is_stopped():
         time_label.text = "[0.0 s]"
     else:
         time_label.text = "[%.1f s]" % timer.time_left
 
-    # debug text tetap ada (boleh dihapus)
     order_debug.text = str(order)
 
-    # urutan harus sama -> langsung bandingkan array
     if serve == order and serve.size() > 0:
         on_serve_match()
 
@@ -89,7 +81,6 @@ func on_serve_match() -> void:
         c.queue_free()
     current_customer = null
 
-    # clear order bubble then generate new order + spawn
     clear_order_bubble()
     generate_order()
     spawn_customer()
@@ -102,7 +93,6 @@ func spawn_customer():
     else:
         current_customer = female_customer_scene.instantiate()
     customer_position.add_child(current_customer)
-    # Jika customer memiliki metode generate_order sendiri, bisa dipanggil di sini
 
 func generate_order():
     var max_scoop = 3
@@ -136,8 +126,6 @@ func add_scoop_by_code(code: int) -> void:
         return
     add_scoop_by_scene(scene)
 
-# ----- UPDATED: tampilkan order di node OrderDisplay/bubble/cone/order_scoops -----
-# Karena struktur scene-mu menempatkan OrderDisplay di root, fungsi ini mencari node
 # dari root script (get_node_or_null(order_scoops_rel_path)) dan menambahkan scoop preview.
 func display_order_in_bubble(order_arr: Array) -> void:
     var container: Node = get_node_or_null(order_scoops_rel_path)
@@ -155,16 +143,19 @@ func display_order_in_bubble(order_arr: Array) -> void:
         var scene = scoop_map.get(code, null)
         if scene == null:
             continue
-        var inst = scene.instantiate()
-        # set tweak visual: skala kecil agar muat di bubble
-        inst.scale = order_scoop_scale
+        var ordered_scoops_texture = scene.instantiate()
+        # ini jadi initiate child baru di dalam order_scoops
+        ordered_scoops_texture.scale = order_scoop_scale
+        # ini biar... ohh scaling texture scoop es krim nya biar es krim muat di texture bubble order
         # posisi relatif terhadap container; letakkan agar tumpukan terlihat di atas cone
-        # index 0 -> scoop paling atas, jadi pos Y = spacing * (n - 1 - i)
-        inst.position = Vector2(0, order_scoop_spacing * (n - 1 - i))
+        # index 0 -> scoop paling bawah, jadi pos Y = spacing * i
+        ordered_scoops_texture.position = Vector2(0, order_scoop_spacing * i)
         # atur z_index supaya scoops yang lebih atas digambar di atas
-        if inst is Node2D:
-            inst.z_index = i
-        container.add_child(inst)
+        if ordered_scoops_texture is Node2D:
+            ordered_scoops_texture.z_index = i
+        container.add_child(ordered_scoops_texture)
+        #ini nambahin scoop terus terusan pokoknya aowkwkwkwk
+        #sumpahh ini function ribet batt anjirrr
 
 func clear_order_bubble() -> void:
     var container: Node = get_node_or_null(order_scoops_rel_path)
@@ -172,7 +163,19 @@ func clear_order_bubble() -> void:
         return
     for child in container.get_children():
         child.queue_free()
-# -------------------------------------------------
+
+func _on_cone_pressed() -> void:
+    for scoop in scoop_container.get_children():
+        scoop.queue_free()
+    scoop_count = 0
+    serve = []
+    # optionally clear order preview when player clears cone
+    # clear_order_bubble()
+
+func _on_timer_timeout() -> void:
+    get_tree().change_scene_to_file("res://game_over.tscn")
+
+# ------------------------------------------------- Tempat scoop2 (boring) --------------------------------#
 
 func _on_vanilla_pressed() -> void:
     add_scoop_by_code(2)
@@ -185,17 +188,6 @@ func _on_strawberry_pressed() -> void:
 func _on_chocolate_pressed() -> void:
     add_scoop_by_code(1)
     serve.append(1)
-
-func _on_cone_pressed() -> void:
-    for scoop in scoop_container.get_children():
-        scoop.queue_free()
-    scoop_count = 0
-    serve = []
-    # optionally clear order preview when player clears cone
-    # clear_order_bubble()
-
-func _on_timer_timeout() -> void:
-    get_tree().change_scene_to_file("res://game_over.tscn")
 
 func _on_red_velvet_pressed() -> void:
     add_scoop_by_code(6)

@@ -4,5 +4,5 @@
 
 [node name="banana_scoop" type="Sprite2D"]
 position = Vector2(1075.5, 552.75)
-scale = Vector2(0.15722652, 0.13525394)
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("1_u3pq8")

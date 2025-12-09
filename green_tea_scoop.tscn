@@ -4,5 +4,5 @@
 
 [node name="green_tea_scoop" type="Sprite2D"]
 position = Vector2(1071, 540.5)
-scale = Vector2(0.17968759, 0.178711)
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("1_vvxfj")
