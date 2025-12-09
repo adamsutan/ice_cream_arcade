@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dc5ka3tmdkpv8"]
+[gd_scene load_steps=11 format=3 uid="uid://dc5ka3tmdkpv8"]
 
 [ext_resource type="Texture2D" uid="uid://dj13e2ptitolf" path="res://assets/graphics/backgrounds/store.png" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://b3uftux6yopk0" path="res://game.gd" id="1_ryrav"]
 [ext_resource type="Texture2D" uid="uid://dmtc5os38ebok" path="res://assets/graphics/ice_creams/vanilla.png" id="2_fc0e3"]
 [ext_resource type="Texture2D" uid="uid://6xe1036gk6h2" path="res://assets/graphics/ice_creams/strawberry.png" id="3_7jktm"]
+[ext_resource type="Texture2D" uid="uid://buagq4r1h6jci" path="res://assets/graphics/chat_bubble/chat_bubble.png" id="3_hve3p"]
 [ext_resource type="Texture2D" uid="uid://c67y7y6fpdthk" path="res://assets/graphics/ice_creams/chocolate.png" id="4_ryrav"]
 [ext_resource type="Texture2D" uid="uid://citjw5qgp42g1" path="res://assets/graphics/ice_creams/cone.png" id="6_eow3j"]
 [ext_resource type="Texture2D" uid="uid://cj48yblwtk5kh" path="res://assets/graphics/ice_creams/banana template.png" id="7_vef74"]
@@ -40,6 +41,19 @@ vertical_alignment = 1
 
 [node name="CustomerDisplay" type="Node2D" parent="."]
 position = Vector2(567, 193)
+
+[node name="OrderDisplay" type="Node2D" parent="."]
+position = Vector2(785, 130)
+
+[node name="bubble" type="Sprite2D" parent="OrderDisplay"]
+scale = Vector2(4, 4)
+texture = ExtResource("3_hve3p")
+
+[node name="cone" type="Sprite2D" parent="OrderDisplay"]
+position = Vector2(0, 29)
+texture = ExtResource("6_eow3j")
+
+[node name="order_scoops" type="Node2D" parent="OrderDisplay"]
 
 [node name="Vanilla" type="TextureButton" parent="."]
 offset_left = 475.0

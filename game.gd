@@ -1,100 +1,189 @@
 extends Node2D
-@onready var male_customer_scene = preload("res://customer_m.tscn")
-@onready var female_customer_scene = preload("res://customer_f.tscn")
-@onready var vanilla_scene = preload("res://vanilla_scoop.tscn")
-@onready var strawberry_scene = preload("res://strawberry_scoop.tscn")
-@onready var chocolate_scene = preload("res://chocolate_scoop.tscn")
-@onready var Banana_scene = preload("res://banana_scoop.tscn")
-@onready var green_tea_scene = preload("res://green_tea_scoop.tscn")
-@onready var red_velvet_scene = preload("res://red_velvet_scoop.tscn")
+
+# Customer scenes (exported so you can override in the Inspector, with sensible defaults)
+@export var male_customer_scene: PackedScene = preload("res://customer_m.tscn")
+@export var female_customer_scene: PackedScene = preload("res://customer_f.tscn")
+
+# Scoop scenes (exported so designer dapat drag & drop di Inspector; default preloads disediakan)
+@export var vanilla_scene: PackedScene = preload("res://vanilla_scoop.tscn")
+@export var strawberry_scene: PackedScene = preload("res://strawberry_scoop.tscn")
+@export var chocolate_scene: PackedScene = preload("res://chocolate_scoop.tscn")
+@export var banana_scene: PackedScene = preload("res://banana_scoop.tscn")
+@export var green_tea_scene: PackedScene = preload("res://green_tea_scoop.tscn")
+@export var red_velvet_scene: PackedScene = preload("res://red_velvet_scoop.tscn")
+
 @onready var timer = $Timer
 @onready var time_label: RichTextLabel = $TimerDisplay
 @onready var order_debug: RichTextLabel = $Order
 @onready var scoop_container = $"IceCreamDisplay/scoop_currently"
 @onready var customer_position = $"CustomerDisplay"
 
+# Path (relative to this node) to the node that should contain order scoops.
+# Sesuaikan kalau struktur scene root-mu beda. Default sesuai screenshotmu.
+@export var order_scoops_rel_path: String = "OrderDisplay/border_scoops"
+
+# Visual tweaks untuk order display (Inspector-friendly)
+@export var order_scoop_scale: Vector2 = Vector2(0.6, 0.6)
+@export var order_scoop_spacing: float = -14.0
+
 var current_customer = null
 var scoop_count = 0
 var scoop_spacing = -30
 
-var avail_scoops: Array = [1,2,3,4,5,6] #kode buat rasa in case mau tambah rasa
+# Mapping kode rasa -> PackedScene (dibangun di _ready dari exported vars)
+var scoop_map: Dictionary = {}
+
+# available scoop codes (dipakai untuk generate order)
+var avail_scoops: Array = []
+
 var order: Array = []
 var serve: Array = []
 
 func _ready() -> void:
+    # bangun mapping kode -> scene (kamu bisa ubah kode sesuai kebutuhan)
+    scoop_map = {
+        1: chocolate_scene,
+        2: vanilla_scene,
+        3: strawberry_scene,
+        4: banana_scene,
+        5: green_tea_scene,
+        6: red_velvet_scene
+    }
+    # avail_scoops adalah daftar key dari scoop_map, dipakai untuk generate_order
+    avail_scoops = scoop_map.keys()
+    randomize()
+
     generate_order()
     spawn_customer()
+    # tampilkan order di bubble awal
+    display_order_in_bubble(order)
 
 func _process(_delta: float) -> void:
-    # Timer
+    # Timer display
     if timer.is_stopped():
         time_label.text = "[0.0 s]"
     else:
         time_label.text = "[%.1f s]" % timer.time_left
-    
+
+    # debug text tetap ada (boleh dihapus)
     order_debug.text = str(order)
-    
-    if serve == order:
+
+    # urutan harus sama -> langsung bandingkan array
+    if serve == order and serve.size() > 0:
         on_serve_match()
 
 func on_serve_match() -> void:
     timer.wait_time = 10.0
     timer.start()
+
     await get_tree().create_timer(0.5).timeout
+
+    # bersihkan scoop yang ada pada player
     for scoop in scoop_container.get_children():
         scoop.queue_free()
     scoop_count = 0
     serve = []
-    
-    for customer in customer_position.get_children():
-        current_customer.queue_free()
-    
+
+    # bersihkan customer(s)
+    for c in customer_position.get_children():
+        c.queue_free()
+    current_customer = null
+
+    # clear order bubble then generate new order + spawn
+    clear_order_bubble()
     generate_order()
     spawn_customer()
-    
+    display_order_in_bubble(order)
+
 func spawn_customer():
     var choice = randi() % 2
     if choice == 0:
         current_customer = male_customer_scene.instantiate()
     else:
         current_customer = female_customer_scene.instantiate()
-    #current_customer.position = Vector2(300, 200)  # Adjust to shop layout
     customer_position.add_child(current_customer)
-    
-    #current_customer.generate_order()
+    # Jika customer memiliki metode generate_order sendiri, bisa dipanggil di sini
 
 func generate_order():
     var max_scoop = 3
     var min_scoop = 1
     var count = randi() % (max_scoop - min_scoop + 1) + min_scoop
+
     var shuffled = avail_scoops.duplicate()
-    # Fisher-Yates shuffle
     for i in range(shuffled.size() - 1, 0, -1):
         var j = randi() % (i + 1)
         var tmp = shuffled[i]
         shuffled[i] = shuffled[j]
         shuffled[j] = tmp
-    # Pilih count teratas (slice) hasil shuffle jadi order
+
     order = shuffled.slice(0, count)
-    
-func add_scoop(scoop_scene: PackedScene) -> void:
-    if scoop_count >= 3 :
-        return #
-    var scoop = scoop_scene.instantiate()   # <-- this line belongs to add_scoop
+
+func add_scoop_by_scene(scoop_scene: PackedScene) -> void:
+    if scoop_count >= 3:
+        return
+    if scoop_scene == null:
+        push_error("Tried to add null scoop scene")
+        return
+    var scoop = scoop_scene.instantiate()
     scoop.position = Vector2(0, scoop_spacing * scoop_count)
     scoop_container.add_child(scoop)
     scoop_count += 1
 
+func add_scoop_by_code(code: int) -> void:
+    var scene = scoop_map.get(code, null)
+    if scene == null:
+        push_error("No scoop scene mapped for code: %s" % str(code))
+        return
+    add_scoop_by_scene(scene)
+
+# ----- UPDATED: tampilkan order di node OrderDisplay/bubble/cone/order_scoops -----
+# Karena struktur scene-mu menempatkan OrderDisplay di root, fungsi ini mencari node
+# dari root script (get_node_or_null(order_scoops_rel_path)) dan menambahkan scoop preview.
+func display_order_in_bubble(order_arr: Array) -> void:
+    var container: Node = get_node_or_null(order_scoops_rel_path)
+    if container == null:
+        push_warning("Order display node not found at path '%s'. Adjust order_scoops_rel_path." % order_scoops_rel_path)
+        return
+
+    # kosongkan dulu
+    for child in container.get_children():
+        child.queue_free()
+
+    var n = order_arr.size()
+    for i in range(n):
+        var code = order_arr[i]
+        var scene = scoop_map.get(code, null)
+        if scene == null:
+            continue
+        var inst = scene.instantiate()
+        # set tweak visual: skala kecil agar muat di bubble
+        inst.scale = order_scoop_scale
+        # posisi relatif terhadap container; letakkan agar tumpukan terlihat di atas cone
+        # index 0 -> scoop paling atas, jadi pos Y = spacing * (n - 1 - i)
+        inst.position = Vector2(0, order_scoop_spacing * (n - 1 - i))
+        # atur z_index supaya scoops yang lebih atas digambar di atas
+        if inst is Node2D:
+            inst.z_index = i
+        container.add_child(inst)
+
+func clear_order_bubble() -> void:
+    var container: Node = get_node_or_null(order_scoops_rel_path)
+    if container == null:
+        return
+    for child in container.get_children():
+        child.queue_free()
+# -------------------------------------------------
+
 func _on_vanilla_pressed() -> void:
-    add_scoop(vanilla_scene)
+    add_scoop_by_code(2)
     serve.append(2)
 
 func _on_strawberry_pressed() -> void:
-    add_scoop(strawberry_scene)
+    add_scoop_by_code(3)
     serve.append(3)
 
 func _on_chocolate_pressed() -> void:
-    add_scoop(chocolate_scene)
+    add_scoop_by_code(1)
     serve.append(1)
 
 func _on_cone_pressed() -> void:
@@ -102,21 +191,20 @@ func _on_cone_pressed() -> void:
         scoop.queue_free()
     scoop_count = 0
     serve = []
+    # optionally clear order preview when player clears cone
+    # clear_order_bubble()
 
 func _on_timer_timeout() -> void:
     get_tree().change_scene_to_file("res://game_over.tscn")
-    # nanti bikin scene game_over trus panggil disini
 
 func _on_red_velvet_pressed() -> void:
-    add_scoop(red_velvet_scene)
+    add_scoop_by_code(6)
     serve.append(6)
 
-
 func _on_green_tea_pressed() -> void:
-    add_scoop(green_tea_scene)
+    add_scoop_by_code(5)
     serve.append(5)
 
-
 func _on_banana_pressed() -> void:
-    add_scoop(Banana_scene)
+    add_scoop_by_code(4)
     serve.append(4)
