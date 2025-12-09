@@ -46,10 +46,10 @@ horizontal_alignment = 1
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 665.99994
-offset_top = 53.0
-offset_right = 895.99994
-offset_bottom = 108.0
+offset_left = 625.99994
+offset_top = 24.99997
+offset_right = 855.99994
+offset_bottom = 79.99997
 rotation = 0.36593312
 theme_override_colors/default_color = Color(1, 1, 0, 1)
 text = "(ya.. kita butuh 2D artist pls)"

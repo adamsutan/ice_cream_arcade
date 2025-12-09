@@ -54,6 +54,7 @@ position = Vector2(0, 29)
 texture = ExtResource("6_eow3j")
 
 [node name="order_scoops" type="Node2D" parent="OrderDisplay"]
+position = Vector2(0, 12)
 
 [node name="Vanilla" type="TextureButton" parent="."]
 offset_left = 475.0
