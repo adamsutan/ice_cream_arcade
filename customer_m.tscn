@@ -1,10 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://dyru6gvwj0cbq"]
 
-[ext_resource type="Texture2D" uid="uid://bih78aghracoh" path="res://assets/graphics/customers/custome m.png" id="1_qu44p"]
+[ext_resource type="Texture2D" uid="uid://bblev0gf7ier2" path="res://assets/graphics/customers/male/face-male.png" id="1_qu44p"]
 
 [node name="customer_m" type="Node2D"]
 
 [node name="male_body" type="Sprite2D" parent="."]
+position = Vector2(1, 1)
+scale = Vector2(2, 2)
 texture = ExtResource("1_qu44p")
-
-[node name="Node2D" type="Node2D" parent="."]

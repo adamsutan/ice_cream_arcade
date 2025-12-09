@@ -1,12 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://dq1v51a3koqsh"]
 
-[ext_resource type="Texture2D" uid="uid://ddk8ds4gay1gw" path="res://assets/graphics/customers/customer f.png" id="1_ou7ww"]
+[ext_resource type="Texture2D" uid="uid://q71geyv5aqhb" path="res://assets/graphics/customers/female/face-female.png" id="1_ou7ww"]
 
 [node name="customer_f" type="Node2D"]
 
 [node name="Body" type="Sprite2D" parent="."]
-position = Vector2(3, -2)
-scale = Vector2(1.546875, 1.609375)
+scale = Vector2(2, 2)
 texture = ExtResource("1_ou7ww")
 
 [node name="bubbleanchor" type="Marker2D" parent="."]
