@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://6xe1036gk6h2" path="res://assets/graphics/ice_creams/strawberry.png" id="3_7jktm"]
 [ext_resource type="Texture2D" uid="uid://buagq4r1h6jci" path="res://assets/graphics/chat_bubble/chat_bubble.png" id="3_hve3p"]
 [ext_resource type="Texture2D" uid="uid://c67y7y6fpdthk" path="res://assets/graphics/ice_creams/chocolate.png" id="4_ryrav"]
-[ext_resource type="Texture2D" uid="uid://citjw5qgp42g1" path="res://assets/graphics/ice_creams/cone.png" id="6_eow3j"]
 [ext_resource type="Texture2D" uid="uid://cj48yblwtk5kh" path="res://assets/graphics/ice_creams/banana template.png" id="7_vef74"]
 [ext_resource type="Texture2D" uid="uid://cb8wkxy0o1aex" path="res://assets/graphics/ice_creams/green tea template.png" id="8_hve3p"]
+[ext_resource type="Texture2D" uid="uid://caf6ny43pu8lh" path="res://assets/graphics/png/cone.png" id="8_mfdv2"]
 [ext_resource type="Texture2D" uid="uid://ch73snsrcurpq" path="res://assets/graphics/ice_creams/red velvet.png" id="9_mfdv2"]
 
 [node name="game" type="Node2D"]
@@ -50,8 +50,9 @@ scale = Vector2(4, 4)
 texture = ExtResource("3_hve3p")
 
 [node name="cone" type="Sprite2D" parent="OrderDisplay"]
-position = Vector2(0, 29)
-texture = ExtResource("6_eow3j")
+position = Vector2(0, 43)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("8_mfdv2")
 
 [node name="order_scoops" type="Node2D" parent="OrderDisplay"]
 position = Vector2(0, 12)
@@ -59,37 +60,61 @@ position = Vector2(0, 12)
 [node name="Vanilla" type="TextureButton" parent="."]
 offset_left = 475.0
 offset_top = 231.0
-offset_right = 655.0
-offset_bottom = 369.0
+offset_right = 675.0
+offset_bottom = 381.0
 texture_normal = ExtResource("2_fc0e3")
 stretch_mode = 0
 
 [node name="Strawberry" type="TextureButton" parent="."]
 offset_left = 772.0
 offset_top = 231.0
-offset_right = 957.0
-offset_bottom = 367.0
+offset_right = 972.0
+offset_bottom = 381.0
 texture_normal = ExtResource("3_7jktm")
 stretch_mode = 0
 
 [node name="Chocolate" type="TextureButton" parent="."]
 offset_left = 180.0
 offset_top = 228.0
-offset_right = 363.0
-offset_bottom = 377.0
+offset_right = 380.0
+offset_bottom = 378.0
 texture_normal = ExtResource("4_ryrav")
 stretch_mode = 0
 
+[node name="Banana" type="TextureButton" parent="."]
+offset_left = 201.0
+offset_top = 349.0
+offset_right = 360.0
+offset_bottom = 499.0
+texture_normal = ExtResource("7_vef74")
+stretch_mode = 0
+
+[node name="Green_Tea" type="TextureButton" parent="."]
+offset_left = 501.0
+offset_top = 361.0
+offset_right = 651.0
+offset_bottom = 491.0
+texture_normal = ExtResource("8_hve3p")
+stretch_mode = 0
+
+[node name="Red_Velvet" type="TextureButton" parent="."]
+offset_left = 797.0
+offset_top = 361.0
+offset_right = 948.0
+offset_bottom = 493.0
+texture_normal = ExtResource("9_mfdv2")
+stretch_mode = 0
+
 [node name="IceCreamDisplay" type="Node2D" parent="."]
-position = Vector2(1098, 550)
+position = Vector2(727, 524)
 
 [node name="cone" type="TextureButton" parent="IceCreamDisplay"]
-offset_left = -68.00005
-offset_top = -26.000023
-offset_right = -0.6815109
-offset_bottom = 42.57142
-scale = Vector2(2.109375, 1.75)
-texture_normal = ExtResource("6_eow3j")
+offset_left = -27.0
+offset_top = 13.000001
+offset_right = 348.0
+offset_bottom = 511.0
+scale = Vector2(0.15, 0.15)
+texture_normal = ExtResource("8_mfdv2")
 
 [node name="scoop_currently" type="Node2D" parent="IceCreamDisplay"]
 position = Vector2(0, 2)
@@ -98,35 +123,11 @@ position = Vector2(0, 2)
 wait_time = 10.0
 autostart = true
 
-[node name="Banana" type="TextureButton" parent="."]
-offset_left = 201.0
-offset_top = 358.0
-offset_right = 348.0
-offset_bottom = 503.0
-texture_normal = ExtResource("7_vef74")
-stretch_mode = 0
-
-[node name="Green_Tea" type="TextureButton" parent="."]
-offset_left = 492.0
-offset_top = 362.0
-offset_right = 642.0
-offset_bottom = 492.0
-texture_normal = ExtResource("8_hve3p")
-stretch_mode = 0
-
-[node name="Red_Velvet" type="TextureButton" parent="."]
-offset_left = 789.0
-offset_top = 363.0
-offset_right = 940.0
-offset_bottom = 495.0
-texture_normal = ExtResource("9_mfdv2")
-stretch_mode = 0
-
 [connection signal="pressed" from="Vanilla" to="." method="_on_vanilla_pressed"]
 [connection signal="pressed" from="Strawberry" to="." method="_on_strawberry_pressed"]
 [connection signal="pressed" from="Chocolate" to="." method="_on_chocolate_pressed"]
-[connection signal="pressed" from="IceCreamDisplay/cone" to="." method="_on_cone_pressed"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="Banana" to="." method="_on_banana_pressed"]
 [connection signal="pressed" from="Green_Tea" to="." method="_on_green_tea_pressed"]
 [connection signal="pressed" from="Red_Velvet" to="." method="_on_red_velvet_pressed"]
+[connection signal="pressed" from="IceCreamDisplay/cone" to="." method="_on_cone_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

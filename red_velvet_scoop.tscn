@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dh2cxfggc6p8q"]
 
-[ext_resource type="Texture2D" uid="uid://dh2ynesxujlj3" path="res://assets/graphics/ice_creams/red velvet scoop.png" id="1_jlse6"]
+[ext_resource type="Texture2D" uid="uid://c6kceiqtcryii" path="res://assets/graphics/png/red.png" id="1_jlse6"]
 
 [node name="Node2D" type="Sprite2D"]
 position = Vector2(1087, 550.00006)

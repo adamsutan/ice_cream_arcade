@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ci0d77xq72o0g"]
 
-[ext_resource type="Texture2D" uid="uid://bx7estux1l0sm" path="res://assets/graphics/ice_creams/banana ice cream.png" id="1_u3pq8"]
+[ext_resource type="Texture2D" uid="uid://cookyqd8j0kff" path="res://assets/graphics/png/light orange.png" id="1_u3pq8"]
 
 [node name="banana_scoop" type="Sprite2D"]
 position = Vector2(1075.5, 552.75)
