@@ -20,6 +20,13 @@ position = Vector2(579.00006, 325.00003)
 scale = Vector2(1.123291, 0.4235026)
 texture = ExtResource("1_80nbo")
 
+[node name="ExitButton" type="Button" parent="."]
+offset_left = 59.0
+offset_top = 43.0
+offset_right = 172.0
+offset_bottom = 92.0
+text = "Exit"
+
 [node name="TimerDisplay" type="RichTextLabel" parent="."]
 offset_left = 516.0
 offset_top = 8.0
@@ -123,6 +130,7 @@ position = Vector2(0, 2)
 wait_time = 10.0
 autostart = true
 
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="Vanilla" to="." method="_on_vanilla_pressed"]
 [connection signal="pressed" from="Strawberry" to="." method="_on_strawberry_pressed"]
 [connection signal="pressed" from="Chocolate" to="." method="_on_chocolate_pressed"]

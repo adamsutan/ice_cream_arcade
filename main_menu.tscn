@@ -24,13 +24,21 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_7vrkn")
 
-[node name="start" type="Button" parent="."]
+[node name="rush" type="Button" parent="."]
 layout_mode = 0
-offset_left = 454.0
-offset_top = 438.0
-offset_right = 702.0
-offset_bottom = 522.0
-text = "start"
+offset_left = 450.0
+offset_top = 350.0
+offset_right = 698.0
+offset_bottom = 434.0
+text = "Rush!"
+
+[node name="relax" type="Button" parent="."]
+layout_mode = 0
+offset_left = 449.0
+offset_top = 446.0
+offset_right = 699.0
+offset_bottom = 530.0
+text = "Relax"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -55,4 +63,5 @@ theme_override_colors/default_color = Color(1, 1, 0, 1)
 text = "(ya.. kita butuh 2D artist pls)"
 fit_content = true
 
-[connection signal="pressed" from="start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="rush" to="." method="_on_rush_pressed"]
+[connection signal="pressed" from="relax" to="." method="_on_relax_pressed"]

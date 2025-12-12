@@ -48,6 +48,7 @@ func _ready() -> void:
 		5: green_tea_scene,
 		6: red_velvet_scene
 	}
+	
 	tray_position = {
 		1: {
 			"name" : $Chocolate,
@@ -77,27 +78,41 @@ func _ready() -> void:
 	
 	avail_scoops = scoop_map.keys()
 	randomize()
+	
+	# Setup berdasarkan difficulty
+	if Global.difficulty == "rush":
+		timer.wait_time = 10.0
+		timer.start()
+		time_label.visible = true
+	else:
+		timer.stop()
+		time_label.visible = false  
 
 	generate_order()
 	spawn_customer()
 	display_order_in_bubble(order)
 
 func _process(_delta: float) -> void:
-	if timer.is_stopped():
-		time_label.text = "[0.0 s]"
-	else:
-		time_label.text = "[%.1f s]" % timer.time_left
+	# Update timer display (cuma di rush mode)
+	if Global.difficulty == "rush":
+		if timer.is_stopped():
+			time_label.text = "[0.0 s]"
+		else:
+			time_label.text = "[%.1f s]" % timer.time_left
 
 	order_debug.text = str(order)
 
 	if serve == order and serve.size() > 0 and not is_serving:
-		is_serving = true  # Set flag supaya ga dipanggil lagi
+		is_serving = true
 		on_serve_match()
 
 func on_serve_match() -> void:
-	timer.wait_time = 10.0
 	order_served += 1
-	timer.start()
+	
+	# Restart timer cuma di rush mode
+	if Global.difficulty == "rush":
+		timer.wait_time = 10.0
+		timer.start()
 
 	await get_tree().create_timer(0.5).timeout
 
@@ -112,14 +127,14 @@ func on_serve_match() -> void:
 		c.queue_free()
 	current_customer = null
 	
+	clear_order_bubble()
+	
 	if order_served >= 10:
 		shuffle_tray_positions()
 	
-	clear_order_bubble()
 	generate_order()
 	spawn_customer()
 	display_order_in_bubble(order)
-	
 	is_serving = false
 
 func shuffle_tray_positions() -> void:
@@ -232,7 +247,8 @@ func _on_cone_pressed() -> void:
 	# clear_order_bubble()
 
 func _on_timer_timeout() -> void:
-	get_tree().change_scene_to_file("res://game_over.tscn")
+	if Global.difficulty == "rush":
+		get_tree().change_scene_to_file("res://game_over.tscn")
 
 # ------------------------------------------------- Tempat scoop2 (boring) --------------------------------#
 
@@ -259,3 +275,6 @@ func _on_green_tea_pressed() -> void:
 func _on_banana_pressed() -> void:
 	add_scoop_by_code(4)
 	serve.append(4)
+
+func _on_exit_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://main_menu.tscn")
