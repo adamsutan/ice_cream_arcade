@@ -18,6 +18,10 @@ extends Node2D
 @onready var scoop_container = $"IceCreamDisplay/scoop_currently"
 @onready var customer_position = $"CustomerDisplay"
 
+# pause variable (for editing kalau mau)
+var PauseMenu = preload("res://pause_menu.tscn")
+var pause_instance = null
+
 # Path (relative to this node) to the node that should contain order scoops.
 # Sesuaikan kalau struktur scene root-mu beda. Default sesuai screenshotmu.
 @export var order_scoops_rel_path: String = "OrderDisplay/order_scoops" 
@@ -276,5 +280,9 @@ func _on_banana_pressed() -> void:
 	add_scoop_by_code(4)
 	serve.append(4)
 
-func _on_exit_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://main_menu.tscn")
+func _on_pause_pressed() -> void:
+	print("pause is pressed")
+	if pause_instance == null or not pause_instance.is_inside_tree():
+		pause_instance = PauseMenu.instantiate()
+		get_tree().root.add_child(pause_instance)
+		pause_instance.pause()

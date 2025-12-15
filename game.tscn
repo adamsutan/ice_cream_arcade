@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dc5ka3tmdkpv8"]
+[gd_scene load_steps=13 format=3 uid="uid://dc5ka3tmdkpv8"]
 
 [ext_resource type="Texture2D" uid="uid://dj13e2ptitolf" path="res://assets/graphics/backgrounds/store.png" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://b3uftux6yopk0" path="res://game.gd" id="1_ryrav"]
@@ -10,22 +10,17 @@
 [ext_resource type="Texture2D" uid="uid://cb8wkxy0o1aex" path="res://assets/graphics/ice_creams/green tea template.png" id="8_hve3p"]
 [ext_resource type="Texture2D" uid="uid://caf6ny43pu8lh" path="res://assets/graphics/png/cone.png" id="8_mfdv2"]
 [ext_resource type="Texture2D" uid="uid://ch73snsrcurpq" path="res://assets/graphics/ice_creams/red velvet.png" id="9_mfdv2"]
+[ext_resource type="Texture2D" uid="uid://dyp3hwkg1347c" path="res://assets/graphics/backgrounds/gridicons--pause.png" id="11_mfdv2"]
+[ext_resource type="PackedScene" uid="uid://cn8g0ug55xsuy" path="res://pause_menu.tscn" id="12_iotsf"]
 
 [node name="game" type="Node2D"]
-position = Vector2(0, -1)
+position = Vector2(-2, 0)
 script = ExtResource("1_ryrav")
 
 [node name="background" type="Sprite2D" parent="."]
 position = Vector2(579.00006, 325.00003)
 scale = Vector2(1.123291, 0.4235026)
 texture = ExtResource("1_80nbo")
-
-[node name="ExitButton" type="Button" parent="."]
-offset_left = 59.0
-offset_top = 43.0
-offset_right = 172.0
-offset_bottom = 92.0
-text = "Exit"
 
 [node name="TimerDisplay" type="RichTextLabel" parent="."]
 offset_left = 516.0
@@ -130,7 +125,22 @@ position = Vector2(0, 2)
 wait_time = 10.0
 autostart = true
 
-[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
+[node name="pause" type="TextureButton" parent="."]
+offset_left = -1.0
+offset_top = 8.0
+offset_right = 63.0
+offset_bottom = 72.0
+texture_normal = ExtResource("11_mfdv2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Pause_menu" parent="CanvasLayer" instance=ExtResource("12_iotsf")]
+offset_left = 4.0
+offset_top = 1.0
+offset_right = 4.0
+offset_bottom = 1.0
+
 [connection signal="pressed" from="Vanilla" to="." method="_on_vanilla_pressed"]
 [connection signal="pressed" from="Strawberry" to="." method="_on_strawberry_pressed"]
 [connection signal="pressed" from="Chocolate" to="." method="_on_chocolate_pressed"]
@@ -139,3 +149,4 @@ autostart = true
 [connection signal="pressed" from="Red_Velvet" to="." method="_on_red_velvet_pressed"]
 [connection signal="pressed" from="IceCreamDisplay/cone" to="." method="_on_cone_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="pause" to="." method="_on_pause_pressed"]
