@@ -6,6 +6,7 @@ func _ready() -> void:
 
 func _on_rush_pressed() -> void:
 	Global.difficulty = "rush"
+	Global.reset_score()
 	get_tree().change_scene_to_file("res://game.tscn")
 
 

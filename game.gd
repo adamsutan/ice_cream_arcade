@@ -17,6 +17,7 @@ extends Node2D
 @onready var order_debug: RichTextLabel = $Order
 @onready var scoop_container = $"IceCreamDisplay/scoop_currently"
 @onready var customer_position = $"CustomerDisplay"
+@onready var score_display = $"ScoreLabel"
 
 # pause variable (for editing kalau mau)
 var PauseMenu = preload("res://pause_menu.tscn")
@@ -32,6 +33,7 @@ var PauseMenu = preload("res://pause_menu.tscn")
 var current_customer = null
 var scoop_count = 0
 var scoop_spacing: float = -30.0
+var order_to_shuffle = 0
 var order_served = 0
 
 var scoop_map: Dictionary = {}
@@ -104,13 +106,20 @@ func _process(_delta: float) -> void:
 			time_label.text = "[%.1f s]" % timer.time_left
 
 	order_debug.text = str(order)
+	score_display.text = str(Global.current_score)
 
 	if serve == order and serve.size() > 0 and not is_serving:
 		is_serving = true
 		on_serve_match()
 
 func on_serve_match() -> void:
-	order_served += 1
+	order_to_shuffle += 1
+	
+	# ini besok benerin dehh pola scoring nya sama implementasi streak, maybe...
+	if order_served >= randi_range(10, 100):
+		Global.current_score += 20
+	else:
+		Global.current_score += 10
 	
 	# Restart timer cuma di rush mode
 	if Global.difficulty == "rush":
@@ -132,7 +141,7 @@ func on_serve_match() -> void:
 	
 	clear_order_bubble()
 	
-	if order_served >= randi_range(1, 10):
+	if order_to_shuffle >= randi_range(1, 10):
 		shuffle_tray_positions()
 	
 	generate_order()

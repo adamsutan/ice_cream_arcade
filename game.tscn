@@ -41,6 +41,15 @@ text = "[Orders]"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ScoreLabel" type="RichTextLabel" parent="."]
+offset_left = 23.0
+offset_top = 29.0
+offset_right = 120.0
+offset_bottom = 69.0
+text = "Score"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="CustomerDisplay" type="Node2D" parent="."]
 position = Vector2(567, 193)
 
@@ -126,13 +135,14 @@ wait_time = 10.0
 autostart = true
 
 [node name="PauseButton" type="TextureButton" parent="."]
-offset_left = 18.0
-offset_top = 20.0
-offset_right = 82.0
-offset_bottom = 84.0
+offset_left = 1047.0
+offset_top = 24.0
+offset_right = 1111.0
+offset_bottom = 88.0
 texture_normal = ExtResource("11_mfdv2")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 follow_viewport_enabled = true
 
 [node name="Pause_menu" parent="CanvasLayer" instance=ExtResource("12_iotsf")]
