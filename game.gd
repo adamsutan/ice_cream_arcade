@@ -20,7 +20,6 @@ extends Node2D
 
 # pause variable (for editing kalau mau)
 var PauseMenu = preload("res://pause_menu.tscn")
-var pause_instance = null
 
 # Path (relative to this node) to the node that should contain order scoops.
 # Sesuaikan kalau struktur scene root-mu beda. Default sesuai screenshotmu.
@@ -133,7 +132,7 @@ func on_serve_match() -> void:
 	
 	clear_order_bubble()
 	
-	if order_served >= 10:
+	if order_served >= randi_range(1, 10):
 		shuffle_tray_positions()
 	
 	generate_order()
@@ -228,9 +227,6 @@ func display_order_in_bubble(order_arr: Array) -> void:
 		# posisi relatif terhadap container; letakkan agar tumpukan terlihat di atas cone
 		# index 0 -> scoop paling bawah, jadi pos Y = spacing * i
 		ordered_scoops_texture.position = Vector2(0, order_scoop_spacing * i)
-		# atur z_index supaya scoops yang lebih atas digambar di atas
-		if ordered_scoops_texture is Node2D:
-			ordered_scoops_texture.z_index = i
 		container.add_child(ordered_scoops_texture)
 		#ini nambahin scoop terus terusan pokoknya aowkwkwkwk
 		#sumpahh ini function ribet batt anjirrr
@@ -255,6 +251,9 @@ func _on_timer_timeout() -> void:
 		get_tree().change_scene_to_file("res://game_over.tscn")
 
 # ------------------------------------------------- Tempat scoop2 (boring) --------------------------------#
+func _on_chocolate_pressed() -> void:
+	add_scoop_by_code(1)
+	serve.append(1)
 
 func _on_vanilla_pressed() -> void:
 	add_scoop_by_code(2)
@@ -263,10 +262,6 @@ func _on_vanilla_pressed() -> void:
 func _on_strawberry_pressed() -> void:
 	add_scoop_by_code(3)
 	serve.append(3)
-
-func _on_chocolate_pressed() -> void:
-	add_scoop_by_code(1)
-	serve.append(1)
 
 func _on_red_velvet_pressed() -> void:
 	add_scoop_by_code(6)
@@ -281,8 +276,7 @@ func _on_banana_pressed() -> void:
 	serve.append(4)
 
 func _on_pause_pressed() -> void:
-	print("pause is pressed")
-	if pause_instance == null or not pause_instance.is_inside_tree():
-		pause_instance = PauseMenu.instantiate()
-		get_tree().root.add_child(pause_instance)
-		pause_instance.pause()
+	if Global.pause_instance == null:
+		Global.pause_instance = PauseMenu.instantiate()
+		get_tree().root.add_child(Global.pause_instance)
+		Global.pause_instance.pause()
