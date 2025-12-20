@@ -113,7 +113,7 @@ func _process(_delta: float) -> void:
 	order_debug.text = str(order)
 	score_display.text = str(Global.current_score)
 	
-	if excellent_served > 1: #1 nanti diganti karna cm buat debugging
+	if excellent_served > 3: #1 nanti diganti karna cm buat debugging
 		streak_mode()
 
 	if serve == order and serve.size() > 0 and not is_serving:
