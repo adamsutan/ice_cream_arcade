@@ -105,7 +105,6 @@ func _process(_delta: float) -> void:
 	if Global.difficulty == "rush":
 		if timer.is_stopped():
 			time_label.text = "[0.0 s]"
-			streak_timer_display.text = "[0.0 s]"
 		else:
 			time_label.text = "[%.1f s]" % timer.time_left
 			streak_timer_display.text = "[%.1f s]" % streak_timer.time_left
@@ -114,7 +113,7 @@ func _process(_delta: float) -> void:
 	order_debug.text = str(order)
 	score_display.text = str(Global.current_score)
 	
-	if excellent_served > 1:
+	if excellent_served > 1: #1 nanti diganti karna cm buat debugging
 		streak_mode()
 
 	if serve == order and serve.size() > 0 and not is_serving:
@@ -162,13 +161,18 @@ func on_serve_match() -> void:
 	is_serving = false
 
 func streak_mode():
-	is_on_streak = true
-	streak_timer.wait_time = 20.0
-	streak_timer.start()
-	
-	if streak_timer.is_stopped():
-		is_on_streak = false
-		excellent_served = 0
+	if not is_on_streak:
+		is_on_streak = true
+		streak_timer.wait_time = 20.0
+		streak_timer.start()
+		# Connect signal timeout jika belum
+		if not streak_timer.timeout.is_connected(_on_streak_timer_timeout):
+			streak_timer.timeout.connect(_on_streak_timer_timeout)
+
+func _on_streak_timer_timeout() -> void:
+	is_on_streak = false
+	excellent_served = 0
+	print("Streak mode ended!") # Debug
 	
 func shuffle_tray_positions() -> void:
 	# Ambil semua posisi dari tray_position dictionary
