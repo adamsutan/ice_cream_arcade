@@ -130,9 +130,11 @@ texture_normal = ExtResource("8_mfdv2")
 [node name="scoop_currently" type="Node2D" parent="IceCreamDisplay"]
 position = Vector2(0, 2)
 
-[node name="Timer" type="Timer" parent="."]
+[node name="GameplayTimer" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
+
+[node name="StreakTimer" type="Timer" parent="."]
 
 [node name="PauseButton" type="TextureButton" parent="."]
 offset_left = 1047.0
@@ -154,6 +156,14 @@ offset_top = 1.0
 offset_right = 4.0
 offset_bottom = 1.0
 
+[node name="Streak_Timer_Debug" type="RichTextLabel" parent="."]
+offset_left = 321.0
+offset_top = 19.0
+offset_right = 493.0
+offset_bottom = 59.0
+text = "Streak_Time_Debug
+"
+
 [connection signal="pressed" from="Vanilla" to="." method="_on_vanilla_pressed"]
 [connection signal="pressed" from="Strawberry" to="." method="_on_strawberry_pressed"]
 [connection signal="pressed" from="Chocolate" to="." method="_on_chocolate_pressed"]
@@ -161,5 +171,5 @@ offset_bottom = 1.0
 [connection signal="pressed" from="Green_Tea" to="." method="_on_green_tea_pressed"]
 [connection signal="pressed" from="Red_Velvet" to="." method="_on_red_velvet_pressed"]
 [connection signal="pressed" from="IceCreamDisplay/cone" to="." method="_on_cone_pressed"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="GameplayTimer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="PauseButton" to="." method="_on_pause_pressed"]

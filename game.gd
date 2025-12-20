@@ -12,8 +12,10 @@ extends Node2D
 @export var green_tea_scene: PackedScene = preload("res://green_tea_scoop.tscn")
 @export var red_velvet_scene: PackedScene = preload("res://red_velvet_scoop.tscn")
 
-@onready var timer = $Timer
+@onready var timer = $'GameplayTimer'
+@onready var streak_timer = $"StreakTimer"
 @onready var time_label: RichTextLabel = $TimerDisplay
+@onready var streak_timer_display: RichTextLabel = $Streak_Timer_Debug
 @onready var order_debug: RichTextLabel = $Order
 @onready var scoop_container = $"IceCreamDisplay/scoop_currently"
 @onready var customer_position = $"CustomerDisplay"
@@ -34,7 +36,7 @@ var current_customer = null
 var scoop_count = 0
 var scoop_spacing: float = -30.0
 var order_to_shuffle = 0
-var order_served = 0
+var excellent_served = 0
 
 var scoop_map: Dictionary = {}
 var tray_position: Dictionary = {}
@@ -43,6 +45,7 @@ var avail_scoops: Array = []
 var order: Array = []
 var serve: Array = []
 var is_serving: bool = false
+var is_on_streak: bool = false
 
 func _ready() -> void:
 	scoop_map = {
@@ -102,11 +105,17 @@ func _process(_delta: float) -> void:
 	if Global.difficulty == "rush":
 		if timer.is_stopped():
 			time_label.text = "[0.0 s]"
+			streak_timer_display.text = "[0.0 s]"
 		else:
 			time_label.text = "[%.1f s]" % timer.time_left
+			streak_timer_display.text = "[%.1f s]" % streak_timer.time_left
+			
 
 	order_debug.text = str(order)
 	score_display.text = str(Global.current_score)
+	
+	if excellent_served > 1:
+		streak_mode()
 
 	if serve == order and serve.size() > 0 and not is_serving:
 		is_serving = true
@@ -116,10 +125,13 @@ func on_serve_match() -> void:
 	order_to_shuffle += 1
 	
 	# ini besok benerin dehh pola scoring nya sama implementasi streak, maybe...
-	if order_served >= randi_range(10, 100):
+	if Global.difficulty == "rush" and timer.time_left > 5.0 and is_on_streak == false:
+		Global.current_score += 10
+		excellent_served += 1
+	elif Global.difficulty == "rush" and is_on_streak == true:
 		Global.current_score += 20
 	else:
-		Global.current_score += 10
+		Global.current_score += 5
 	
 	# Restart timer cuma di rush mode
 	if Global.difficulty == "rush":
@@ -149,6 +161,15 @@ func on_serve_match() -> void:
 	display_order_in_bubble(order)
 	is_serving = false
 
+func streak_mode():
+	is_on_streak = true
+	streak_timer.wait_time = 20.0
+	streak_timer.start()
+	
+	if streak_timer.is_stopped():
+		is_on_streak = false
+		excellent_served = 0
+	
 func shuffle_tray_positions() -> void:
 	# Ambil semua posisi dari tray_position dictionary
 	var positions: Array = []
