@@ -34,7 +34,7 @@ var PauseMenu = preload("res://pause_menu.tscn")
 
 var current_customer = null
 var scoop_count = 0
-var scoop_spacing: float = -30.0
+var scoop_spacing: float = -41.0
 var order_to_shuffle = 0
 var excellent_served = 0
 

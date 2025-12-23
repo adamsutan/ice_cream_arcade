@@ -1,10 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://w5mqdgtwwok1"]
+[gd_scene load_steps=3 format=3 uid="uid://w5mqdgtwwok1"]
 
-[ext_resource type="Texture2D" uid="uid://bfa6swpbiple3" path="res://assets/graphics/backgrounds/Pixel art image of a.png" id="1_06t4h"]
 [ext_resource type="Script" uid="uid://bb1jpntpm18rl" path="res://main_menu.gd" id="1_7vrkn"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7vrkn"]
-texture = ExtResource("1_06t4h")
+[ext_resource type="PackedScene" uid="uid://c3bewueyne4ju" path="res://interior_scene.tscn" id="2_7vrkn"]
 
 [node name="main menu" type="Control"]
 layout_mode = 3
@@ -15,14 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7vrkn")
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_7vrkn")
+[node name="InteriorScene" parent="." instance=ExtResource("2_7vrkn")]
 
 [node name="rush" type="Button" parent="."]
 layout_mode = 0

@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3bewueyne4ju"]
+
+[ext_resource type="Texture2D" uid="uid://c2f3spc4kfsau" path="res://assets/graphics/backgrounds/ice_cream_shop_interior.png" id="1_jn8aq"]
+[ext_resource type="Texture2D" uid="uid://c11t5mm77ubx3" path="res://assets/graphics/backgrounds/countertop_bottom.png" id="2_s5rw3"]
+
+[sub_resource type="Gradient" id="Gradient_7sc4i"]
+offsets = PackedFloat32Array(0, 0.5398773)
+colors = PackedColorArray(0.13633388, 0.36464587, 0.96989363, 1, 0.5860944, 0.7611595, 0.9999959, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4hts7"]
+gradient = SubResource("Gradient_7sc4i")
+fill_from = Vector2(0.49779737, 0)
+fill_to = Vector2(0.49779737, 1)
+
+[node name="InteriorScene" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(580.49994, 323.5)
+scale = Vector2(18.140623, 10.109375)
+texture = SubResource("GradientTexture2D_4hts7")
+
+[node name="Interior" type="Sprite2D" parent="."]
+position = Vector2(584, 256)
+scale = Vector2(0.76, 0.76)
+texture = ExtResource("1_jn8aq")
+
+[node name="Table" type="Sprite2D" parent="Interior"]
+position = Vector2(-2.666687, 121.38597)
+scale = Vector2(1.5078125, 1.0337514)
+texture = ExtResource("2_s5rw3")

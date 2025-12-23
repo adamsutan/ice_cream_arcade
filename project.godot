@@ -19,6 +19,12 @@ config/icon="res://icon.svg"
 
 Global="*res://global.gd"
 
+[display]
+
+window/size/mode=3
+window/size/initial_position_type=0
+window/stretch/mode="canvas_items"
+
 [rendering]
 
 renderer/rendering_method="mobile"
