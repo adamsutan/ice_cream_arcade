@@ -14,44 +14,41 @@ script = ExtResource("1_7vrkn")
 
 [node name="InteriorScene" parent="." instance=ExtResource("2_7vrkn")]
 
+[node name="leaderboard" type="Button" parent="."]
+layout_mode = 0
+offset_left = 792.0
+offset_top = 312.0
+offset_right = 1048.0
+offset_bottom = 568.0
+text = "Leaderboard"
+
 [node name="rush" type="Button" parent="."]
 layout_mode = 0
-offset_left = 450.0
-offset_top = 350.0
-offset_right = 698.0
-offset_bottom = 434.0
+offset_left = 512.0
+offset_top = 312.0
+offset_right = 768.0
+offset_bottom = 568.0
 text = "Rush!"
 
 [node name="relax" type="Button" parent="."]
 layout_mode = 0
-offset_left = 449.0
-offset_top = 446.0
-offset_right = 699.0
-offset_bottom = 530.0
+offset_left = 232.0
+offset_top = 312.0
+offset_right = 488.0
+offset_bottom = 568.0
 text = "Relax"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 378.0
-offset_top = 108.0
-offset_right = 776.0
-offset_bottom = 298.0
+offset_left = 440.0
+offset_top = 72.0
+offset_right = 840.0
+offset_bottom = 272.0
 theme_override_font_sizes/normal_font_size = 69
 text = "ARCADE ICE CREAM
 "
 fit_content = true
 horizontal_alignment = 1
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="."]
-layout_mode = 0
-offset_left = 625.99994
-offset_top = 24.99997
-offset_right = 855.99994
-offset_bottom = 79.99997
-rotation = 0.36593312
-theme_override_colors/default_color = Color(1, 1, 0, 1)
-text = "(ya.. kita butuh 2D artist pls)"
-fit_content = true
 
 [connection signal="pressed" from="rush" to="." method="_on_rush_pressed"]
 [connection signal="pressed" from="relax" to="." method="_on_relax_pressed"]

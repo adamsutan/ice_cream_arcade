@@ -16,13 +16,13 @@ fill_to = Vector2(0.49779737, 1)
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(580.49994, 323.5)
-scale = Vector2(18.140623, 10.109375)
+position = Vector2(639.99994, 359.99997)
+scale = Vector2(19.999998, 11.249999)
 texture = SubResource("GradientTexture2D_4hts7")
 
 [node name="Interior" type="Sprite2D" parent="."]
-position = Vector2(584, 256)
-scale = Vector2(0.76, 0.76)
+position = Vector2(640.16003, 293.44)
+scale = Vector2(0.83312505, 0.833125)
 texture = ExtResource("1_jn8aq")
 
 [node name="Table" type="Sprite2D" parent="Interior"]
