@@ -12,6 +12,13 @@ extends Node2D
 @export var green_tea_scene: PackedScene = preload("res://green_tea_scoop.tscn")
 @export var red_velvet_scene: PackedScene = preload("res://red_velvet_scoop.tscn")
 
+# sound effects collection 
+@onready var sfx_correct_order: AudioStreamPlayer = $sfx_correct_order
+@onready var sfx_add_scoop: AudioStreamPlayer = $sfx_add_scoop
+@onready var sfx_trash: AudioStreamPlayer = $sfx_trash
+@onready var sfx_customer_enter: AudioStreamPlayer = $sfx_customer_enter
+
+
 @onready var timer = $'GameplayTimer'
 @onready var streak_timer = $"StreakTimer"
 @onready var time_label: RichTextLabel = $TimerDisplay
@@ -117,6 +124,7 @@ func _process(_delta: float) -> void:
 		streak_mode()
 
 	if serve == order and serve.size() > 0 and not is_serving:
+		sfx_correct_order.play()
 		is_serving = true
 		on_serve_match()
 
@@ -198,6 +206,7 @@ func shuffle_tray_positions() -> void:
 		idx += 1
 
 func spawn_customer():
+	sfx_customer_enter.play()
 	var choice = randi() % 2
 	if choice == 0:
 		current_customer = male_customer_scene.instantiate()
@@ -273,6 +282,7 @@ func clear_order_bubble() -> void:
 		child.queue_free()
 
 func _on_cone_pressed() -> void:
+	sfx_trash.play()
 	for scoop in scoop_container.get_children():
 		scoop.queue_free()
 	scoop_count = 0
@@ -286,26 +296,32 @@ func _on_timer_timeout() -> void:
 
 # ------------------------------------------------- Tempat scoop2 (boring) --------------------------------#
 func _on_chocolate_pressed() -> void:
+	sfx_add_scoop.play()
 	add_scoop_by_code(1)
 	serve.append(1)
 
 func _on_vanilla_pressed() -> void:
+	sfx_add_scoop.play()
 	add_scoop_by_code(2)
 	serve.append(2)
 
 func _on_strawberry_pressed() -> void:
+	sfx_add_scoop.play()
 	add_scoop_by_code(3)
 	serve.append(3)
 
 func _on_red_velvet_pressed() -> void:
+	sfx_add_scoop.play()
 	add_scoop_by_code(6)
 	serve.append(6)
 
 func _on_green_tea_pressed() -> void:
+	sfx_add_scoop.play()
 	add_scoop_by_code(5)
 	serve.append(5)
 
 func _on_banana_pressed() -> void:
+	sfx_add_scoop.play()
 	add_scoop_by_code(4)
 	serve.append(4)
 

@@ -1,7 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cn8g0ug55xsuy"]
+[gd_scene load_steps=11 format=3 uid="uid://cn8g0ug55xsuy"]
 
 [ext_resource type="Script" uid="uid://bkj70svp06m37" path="res://pause_menu.gd" id="1_nwcfo"]
 [ext_resource type="Shader" uid="uid://cyn7kjdsilyxj" path="res://pause_menu.gdshader" id="2_05uyy"]
+[ext_resource type="AudioStream" uid="uid://dclxdougqycuh" path="res://assets/audio/sfx/pause.wav" id="3_05uyy"]
+[ext_resource type="AudioStream" uid="uid://ccbs55ksww5xp" path="res://assets/audio/sfx/enter.wav" id="4_p81d2"]
+[ext_resource type="AudioStream" uid="uid://c7v2thgeogl42" path="res://assets/audio/sfx/exit.wav" id="5_2nc7s"]
+[ext_resource type="AudioStream" uid="uid://c6fhcpefmirwb" path="res://assets/audio/sfx/enter_alt.wav" id="6_d3xb4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p81d2"]
 shader = ExtResource("2_05uyy")
@@ -199,6 +203,18 @@ text = "EXIT
 libraries = {
 &"": SubResource("AnimationLibrary_p81d2")
 }
+
+[node name="sfx_pause" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_05uyy")
+
+[node name="sfx_resume" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_p81d2")
+
+[node name="sfx_main_menu" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_2nc7s")
+
+[node name="sfx_exit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_d3xb4")
 
 [connection signal="pressed" from="Panel/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Main_Menu" to="." method="_on_main_menu_pressed"]

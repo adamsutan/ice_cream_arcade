@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dc5ka3tmdkpv8"]
+[gd_scene load_steps=17 format=3 uid="uid://dc5ka3tmdkpv8"]
 
 [ext_resource type="Script" uid="uid://b3uftux6yopk0" path="res://game.gd" id="1_ryrav"]
 [ext_resource type="Texture2D" uid="uid://dmtc5os38ebok" path="res://assets/graphics/ice_creams/vanilla.png" id="2_fc0e3"]
@@ -12,6 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://ch73snsrcurpq" path="res://assets/graphics/ice_creams/red velvet.png" id="9_mfdv2"]
 [ext_resource type="Texture2D" uid="uid://dyp3hwkg1347c" path="res://assets/graphics/backgrounds/gridicons--pause.png" id="11_mfdv2"]
 [ext_resource type="PackedScene" uid="uid://cn8g0ug55xsuy" path="res://pause_menu.tscn" id="12_iotsf"]
+[ext_resource type="AudioStream" uid="uid://c80nr6yepw0ex" path="res://assets/audio/sfx/order_success.wav" id="13_lc2xo"]
+[ext_resource type="AudioStream" uid="uid://bhumfieo378y4" path="res://assets/audio/sfx/ice_cream_scoop.wav" id="14_7sc4i"]
+[ext_resource type="AudioStream" uid="uid://dxdnem7h23xrf" path="res://assets/audio/sfx/ice_cream_trashed.wav" id="15_80cx4"]
+[ext_resource type="AudioStream" uid="uid://bpvk7ykxaerpg" path="res://assets/audio/sfx/customer_enter.wav" id="16_80cx4"]
 
 [node name="game" type="Node2D"]
 position = Vector2(-2, 0)
@@ -167,6 +171,18 @@ offset_right = 494.0
 offset_bottom = 80.0
 text = "Streak_Time_Debug
 "
+
+[node name="sfx_correct_order" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_lc2xo")
+
+[node name="sfx_add_scoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_7sc4i")
+
+[node name="sfx_trash" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_80cx4")
+
+[node name="sfx_customer_enter" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_80cx4")
 
 [connection signal="pressed" from="Vanilla" to="." method="_on_vanilla_pressed"]
 [connection signal="pressed" from="Strawberry" to="." method="_on_strawberry_pressed"]

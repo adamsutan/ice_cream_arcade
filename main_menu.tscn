@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://w5mqdgtwwok1"]
+[gd_scene load_steps=4 format=3 uid="uid://w5mqdgtwwok1"]
 
 [ext_resource type="Script" uid="uid://bb1jpntpm18rl" path="res://main_menu.gd" id="1_7vrkn"]
 [ext_resource type="PackedScene" uid="uid://c3bewueyne4ju" path="res://interior_scene.tscn" id="2_7vrkn"]
+[ext_resource type="AudioStream" uid="uid://c6fhcpefmirwb" path="res://assets/audio/sfx/enter_alt.wav" id="3_fu7sn"]
 
 [node name="main menu" type="Control"]
 layout_mode = 3
@@ -49,6 +50,9 @@ text = "ARCADE ICE CREAM
 "
 fit_content = true
 horizontal_alignment = 1
+
+[node name="sfx_menu" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_fu7sn")
 
 [connection signal="pressed" from="rush" to="." method="_on_rush_pressed"]
 [connection signal="pressed" from="relax" to="." method="_on_relax_pressed"]
